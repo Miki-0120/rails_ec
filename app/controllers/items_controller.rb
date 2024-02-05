@@ -30,7 +30,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to item_url(@item), notice: 'Item was successfully created.' }
+        format.html { redirect_to item_url(@item), notice: '商品を登録しました' }
         format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,8 +42,8 @@ class ItemsController < ApplicationController
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
     respond_to do |format|
-      if @item.update(task_params)
-        format.html { redirect_to task_url(@item), notice: 'Item was successfully updated.' }
+      if @item.update(item_params)
+        format.html { redirect_to item_url(@item), notice: '商品情報を更新しました' }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class ItemsController < ApplicationController
     @item.destroy
 
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Item was successfully destroyed.' }
+      format.html { redirect_to tasks_url, notice: '商品の削除が成功しました' }
       format.json { head :no_content }
     end
   end
