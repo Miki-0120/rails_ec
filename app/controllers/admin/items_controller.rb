@@ -1,12 +1,8 @@
 class Admin::ItemsController < ApplicationController
-  before_action :set_item, only: %i[show edit update destroy]
+  before_action :set_item, only: %i[edit update destroy]
 
   def index
       @items = Item.all
-    end
-  
-    def show
-      @item = Item.find(params[:id])
     end
   
     def edit
@@ -43,18 +39,10 @@ class Admin::ItemsController < ApplicationController
       redirect_to admin_items_path, notice: "商品の削除が成功しました"
       rescue StandardError => e
       flash.now[:danger] = "削除に失敗しました: #{e.message}"
-      render 'show'
+      redirect_to admin_items_path
     end
-  
-  before_action :basic_auth
 
   private
-
-  def basic_auth
-    authenticate_or_request_with_http_basic do |username, password|
-      username == "admin" && password == "pw"
-    end
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_item

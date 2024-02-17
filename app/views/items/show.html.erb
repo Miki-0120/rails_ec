@@ -50,7 +50,9 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6">
-                        <%= image_tag @item.item_image, class: "card-img-top" %>
+                        <% if @item.item_image.attached? %>
+                             <%= image_tag @item.item_image, class: "card-img-top" %>
+                        <% end %>
                     <div class="col-md-6">
                         <div class="small mb-1">商品ID:<%= @item.id %></div>
                         <h1 class="display-5 fw-bolder"><%= @item.name %></h1>
@@ -85,7 +87,9 @@
                     <%= link_to(item_path(item), class: "Editlink") do %>
                         <div class="card h-100">
                             <!-- Product image-->
-                            <%= image_tag item.item_image, class: "card-img-top" %>
+                            <% if @item && @item.item_image.attached? %>
+                                <%= image_tag @item.item_image, class: "card-img-top" %>
+                            <% end %>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">

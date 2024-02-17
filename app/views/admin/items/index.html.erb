@@ -22,11 +22,11 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <%= link_to "一般向けのホームへ戻る", { controller: "items", action: "index" }, :method => "get", class: "Editlink" %>
+                        <%= link_to "一般向けのホームへ戻る", items_path, class: "Editlink" %>
                         </li>
                     </ul>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <%= link_to "新規商品登録", { :action => "new" }, :method => "get", class: "Editlink" %>
+                        <%= link_to "商品作成", new_admin_item_path, class: "Editlink" %>
                         </li>
                     </ul>
                 </div>
@@ -49,7 +49,7 @@
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
         <% @items.each do |item| %>
             <div class="col mb-5">
-                        <%= link_to(item_path(item), class: "Editlink") do %>
+            <!-- <%= link_to(item_path(item), class: "Editlink") do %> -->
                     <div class="card h-100">
                         <!-- Product image-->
                         <% if item.item_image.attached? %>
@@ -67,10 +67,10 @@
         
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"><%= link_to "商品編集", { :action => "update" }, :method => "get", class: "Editlink" %></a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"><%= link_to "商品編集", edit_admin_item_path(item), class: "Editlink" %></a></div>
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"><%= link_to "削除", { :action => "index" }, :method => "get", class: "Editlink" %></a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"><%= link_to "商品削除", [:admin, item], method: :delete, data: { confirm: "本当に削除しますか？" }, class: "Editlink" %></a></div>
                         </div>
                     </div>
                     <% end %>
