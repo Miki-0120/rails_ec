@@ -33,8 +33,9 @@
         <%= f.file_field :item_image, class: 'form-control' %>
       </div>
       <%= form_with(model: @item, url: admin_items_path, local: true) do |f| %>
-      <%= f.submit '登録する', class: 'btn btn-primary' %>
+        <%= f.submit '登録する', class: 'btn btn-primary' %>
       <% end %>
+      <%= link_to "一覧へ戻る", admin_items_path, class: "btn btn-outline-dark" %>
     <% end %>
   </body>
 </html>

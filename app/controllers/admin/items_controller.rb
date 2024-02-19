@@ -1,5 +1,5 @@
 class Admin::ItemsController < ApplicationController
-  before_action :set_item, only: %i[edit update destroy]
+  before_action :basic_authenticate
 
   def index
       @items = Item.all
@@ -49,5 +49,13 @@ class Admin::ItemsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def item_params
     params.require(:item).permit(:name, :price, :description, :item_image, images: [])
+  end
+
+  def basic_authenticate
+    return if Rails.env.development?
+
+    authenticate_or_request_with_http_basic do |username, password|
+      username == ENV['BASIC_USERNAME'] && password == ENV['BASIC_PASSWORD']
+    end
   end
 end
