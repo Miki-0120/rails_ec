@@ -37,9 +37,6 @@ class Admin::ItemsController < ApplicationController
       set_item
       @item.destroy
       redirect_to admin_items_path, notice: "商品の削除が成功しました"
-      rescue StandardError => e
-      flash.now[:danger] = "削除に失敗しました: #{e.message}"
-      redirect_to admin_items_path
     end
 
   private
@@ -51,6 +48,6 @@ class Admin::ItemsController < ApplicationController
   
   # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:name, :price, :description, :image, images: [])
+    params.require(:item).permit(:name, :price, :description, :item_image, images: [])
   end
 end

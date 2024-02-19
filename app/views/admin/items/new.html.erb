@@ -32,7 +32,9 @@
         <%= f.label :item_image, '画像' %>
         <%= f.file_field :item_image, class: 'form-control' %>
       </div>
+      <%= form_with(model: @item, url: admin_items_path, local: true) do |f| %>
       <%= f.submit '登録する', class: 'btn btn-primary' %>
+      <% end %>
     <% end %>
   </body>
 </html>
