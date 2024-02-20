@@ -52,10 +52,10 @@ class Admin::ItemsController < ApplicationController
   end
 
   def basic_authenticate
-    return if Rails.env.development?
+    #return if Rails.env.development?
 
     authenticate_or_request_with_http_basic do |username, password|
-      username == ENV['BASIC_USERNAME'] && password == ENV['BASIC_PASSWORD']
+      username == 'admin' && password == 'pw'
     end
   end
 end
