@@ -85,7 +85,7 @@
                   <div class="card h-100">
                     <!-- Product image-->
                     <% if @item && @item.item_image.attached? %>
-                      <%= image_tag @item.item_image, class: "card-img-top" %>
+                      <%= image_tag item.item_image, class: "card-img-top" %>
                     <% end %>
                     <!-- Product details-->
                     <div class="card-body p-4">
