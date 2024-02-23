@@ -10,5 +10,4 @@ Rails.application.routes.draw do
   # resource :profile,only: %i[show edit new create update destroy]
   root to: 'items#index'
   get 'items/:id' => 'items#show', as: 'show'
-   
 end

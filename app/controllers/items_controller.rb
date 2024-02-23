@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ItemsController < ApplicationController
- 
   # GET /tasks or /tasks.json
   def index
     @items = Item.all
