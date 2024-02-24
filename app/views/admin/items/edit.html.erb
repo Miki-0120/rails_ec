@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<body>
+  <h1>商品編集</h1>
+  <div class="container">
+    <%= form_with(model: @item, url: admin_item_path(@item), method: :patch) do |form| %>
+      <div>
+        <%= form.label :name, "名前" %>
+        <%= form.text_field :name %>
+      </div>
+      <div>
+        <%= form.label :price, "価格" %>
+        <%= form.text_field :price %>
+      </div>
+      <div>
+        <%= form.label :description, "説明" %>
+        <%= form.text_area :description, style: "width: 100%;" %>
+      </div>
+      <div>
+        <%= form.label :item_image, "画像" %>
+        <%= form.file_field :item_image %>
+      </div>
+      <div>
+        <%= form.submit "保存する", class: 'btn btn-primary' %>
+        <%= link_to "一覧へ戻る", admin_items_path, class: "btn btn-outline-dark" %>
+      </div>
+    <% end %>
+  </div>
+</body>
+</html>

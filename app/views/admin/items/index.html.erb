@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<body>
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+      <a class="navbar-brand" href="#!">Plants.com</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+          <%= link_to "一般向けのホームへ戻る", items_path, class: "Editlink" %>
+        </li>
+      </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+        <%= link_to "商品作成", new_admin_item_path, class: "Editlink" %>
+      </li>
+    </ul>
+  </div>
+</div>
+</nav>
+<!-- Header-->
+<% if flash[:notice] %>
+  <div class="alert alert-success"><%= notice %></div>
+<% end %>
+<header class="bg-dark py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">Plants.com</h1>
+      <p class="lead fw-normal text-white-50 mb-0">商品管理用のページです</p>
+    </div>
+  </div>
+</header>
+<!-- Section-->
+<section class="py-5">
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <% @items.each do |item| %>
+        <div class="col mb-5">
+          <!-- <%= link_to(item_path(item), class: "Editlink") do %> -->
+          <div class="card h-100">
+            <!-- Product image-->
+            <% if item.item_image.attached? %>
+              <%= image_tag item.item_image, class: "card-img-top" %>
+            <% end %>
+            <!-- Product details-->
+            <div class="card-body p-4">
+              <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder"><%= item.name %></h5>
+                <!-- Product price-->
+                <%= item.price %>
+              </div>
+            </div>
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div class="text-center"></div>
+            </div>
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div class="text-center"><%= link_to edit_admin_item_path(item), class: "btn btn-outline-dark mt-auto Editlink" do %>
+                  商品編集
+                <% end %>
+                <%= link_to "商品削除", admin_item_path(item), data: { turbo_method: :delete }, class: "btn btn-outline-dark Editlink" %></a></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+</div>
+</section>
