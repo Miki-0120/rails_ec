@@ -1,41 +1,27 @@
 <!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Shop Item - Start Bootstrap Template</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
-  </head>
-  <body>
-    <h1>商品作成</h1>
-    <%= form_with model: [:admin, @item], local: true do |f| %>
-      <div class="form-group">
-        <%= f.label :name, '名前' %>
-        <%= f.text_field :name, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :price, '価格' %>
-        <%= f.text_field :price, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :description, '説明' %>
-        <%= f.text_field :description, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :item_image, '画像' %>
-        <%= f.file_field :item_image, class: 'form-control' %>
-      </div>
-      <%= form_with(model: @item, url: admin_items_path, local: true) do |f| %>
-        <%= f.submit '登録する', class: 'btn btn-primary' %>
-      <% end %>
-      <%= link_to "一覧へ戻る", admin_items_path, class: "btn btn-outline-dark" %>
+<body>
+  <h1>商品作成</h1>
+  <%= form_with model: [:admin, @item], local: true do |f| %>
+    <div class="form-group">
+      <%= f.label :name, '名前' %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :price, '価格' %>
+      <%= f.text_field :price, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description, '説明' %>
+      <%= f.text_field :description, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :item_image, '画像' %>
+      <%= f.file_field :item_image, class: 'form-control' %>
+    </div>
+    <%= form_with(model: @item, url: admin_items_path, local: true) do |f| %>
+      <%= f.submit '登録する', class: 'btn btn-primary' %>
     <% end %>
-  </body>
+    <%= link_to "一覧へ戻る", admin_items_path, class: "btn btn-outline-dark" %>
+  <% end %>
+</body>
 </html>

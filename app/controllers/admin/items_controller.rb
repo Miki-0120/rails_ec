@@ -3,6 +3,7 @@
 module Admin
   class ItemsController < ApplicationController
     before_action :basic_authenticate
+    before_action :set_item, only: %i[edit update destroy]
 
     def index
       @items = Item.all
@@ -27,7 +28,6 @@ module Admin
     end
 
     def update
-      set_item
       if @item.update(item_params)
         redirect_to admin_items_path, notice: '商品情報を編集しました'
       else
@@ -37,7 +37,6 @@ module Admin
     end
 
     def destroy
-      set_item
       @item.destroy
       redirect_to admin_items_path, notice: '商品の削除が成功しました'
     end
