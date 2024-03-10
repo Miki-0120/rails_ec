@@ -46,12 +46,12 @@
             </div>
             <p class="lead"><%= @item.description %></p>
             <div class="d-flex">
-            <%= form_with(model: @line_item,url: line_items_path, method: :post,local: true)do |f| %>
-              <%= f.select :quantity, (1..19).to_a %>
-              <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                <i class="bi-cart-fill me-1"></i>
-                <%= f.submit "カートに入れる" %>
-                <% end %>  
+              <%= form_with(model: @line_item,url: line_items_path, method: :post,local: true)do |f| %>
+                <%= f.select :quantity, (1..19).to_a %>
+                <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                  <i class="bi-cart-fill me-1"></i>
+                  <%= f.submit "カートに入れる" %>
+                <% end %>
               </button>
             </div>
           </div>

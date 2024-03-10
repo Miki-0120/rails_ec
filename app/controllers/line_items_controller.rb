@@ -1,28 +1,32 @@
+# frozen_string_literal: true
+
 class LineItemsController < ApplicationController
   include CurrentCart
-	before_action :set_cart, only: [:create]
-  before_action :set_line_item, only: %i[ show edit update destroy ]
+  before_action :set_cart, only: [:create]
+  before_action :set_line_item, only: %i[show edit update destroy]
   # GET /line_items or /line_items.json
   def index
     @line_items = LineItem.all
   end
+
   # GET /line_items/1 or /line_items/1.json
-  def show
-  end
+  def show; end
+
   # GET /line_items/new
   def new
     @line_item = LineItem.new
   end
+
   # GET /line_items/1/edit
-  def edit
-  end
+  def edit; end
+
   # POST /line_items or /line_items.json
   def create
     item = item.find(params[:item_id])
     @line_item = @cart.add_item(item)
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to item_index_url, notice: "商品をカートに追加しました。" }
+        format.html { redirect_to item_index_url, notice: '商品をカートに追加しました。' }
         format.json { render :show, status: :created, location: @line_item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -30,11 +34,12 @@ class LineItemsController < ApplicationController
       end
     end
   end
+
   # PATCH/PUT /line_items/1 or /line_items/1.json
   def update
     respond_to do |format|
       if @line_item.update(line_item_params)
-        format.html { redirect_to line_item_url(@line_item), notice: "正常に更新されました" }
+        format.html { redirect_to line_item_url(@line_item), notice: '正常に更新されました' }
         format.json { render :show, status: :ok, location: @line_item }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -42,6 +47,7 @@ class LineItemsController < ApplicationController
       end
     end
   end
+
   # DELETE /line_items/1 or /line_items/1.json
   def destroy
     @line_item.destroy
@@ -52,12 +58,14 @@ class LineItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_line_item
-      @line_item = LineItem.find(params[:id])
-    end
-    # Only allow a list of trusted parameters through.
-    def line_item_params
-      params.require(:line_item).permit(:item_id, :cart_id)
-    end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_line_item
+    @line_item = LineItem.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def line_item_params
+    params.require(:line_item).permit(:item_id, :cart_id)
+  end
 end
