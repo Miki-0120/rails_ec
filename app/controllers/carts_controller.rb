@@ -1,5 +1,7 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: %i[ show edit update destroy ]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
+
 
   # GET /carts or /carts.json
   def index
@@ -8,6 +10,8 @@ class CartsController < ApplicationController
 
   # GET /carts/1 or /carts/1.json
   def show
+    @cart = Cart.find(params[:id])
+    @cart_items = @cart.line_items
   end
 
   # GET /carts/new
@@ -49,7 +53,8 @@ class CartsController < ApplicationController
 
   # DELETE /carts/1 or /carts/1.json
   def destroy
-    @cart.destroy
+    @cart.destroy if @cart.id == session[:cart_id]
+    session[:cart_id] = nil
 
     respond_to do |format|
       format.html { redirect_to carts_url, notice: "Cart was successfully destroyed." }
@@ -66,5 +71,10 @@ class CartsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def cart_params
       params.fetch(:cart, {})
+    end
+
+    def invalid_cart
+      logger.error "無効なカート（#{params[:id]}）にアクセスしようとしました。"
+      redirect_to items_url, notice: '無効なカートです。'
     end
 end

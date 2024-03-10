@@ -19,10 +19,10 @@ class LineItemsController < ApplicationController
   # POST /line_items or /line_items.json
   def create
     item = item.find(params[:item_id])
-    @line_item = @cart.line_items.build(item: item)
+    @line_item = @cart.add_item(item)
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to line_item_url(@line_item), notice: "商品をカートに追加しました。" }
+        format.html { redirect_to item_index_url, notice: "商品をカートに追加しました。" }
         format.json { render :show, status: :created, location: @line_item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -34,7 +34,7 @@ class LineItemsController < ApplicationController
   def update
     respond_to do |format|
       if @line_item.update(line_item_params)
-        format.html { redirect_to line_item_url(@line_item), notice: "Line item was successfully updated." }
+        format.html { redirect_to line_item_url(@line_item), notice: "正常に更新されました" }
         format.json { render :show, status: :ok, location: @line_item }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -44,12 +44,13 @@ class LineItemsController < ApplicationController
   end
   # DELETE /line_items/1 or /line_items/1.json
   def destroy
-    @line_item.destroy!
+    @line_item.destroy
     respond_to do |format|
-      format.html { redirect_to line_items_url, notice: "Line item was successfully destroyed." }
+      format.html { redirect_to cart_url(@line_item.cart_id), notice: '商品をカートから削除しました。' }
       format.json { head :no_content }
     end
   end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_line_item

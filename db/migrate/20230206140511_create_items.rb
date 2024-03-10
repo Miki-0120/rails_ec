@@ -6,7 +6,7 @@ class CreateItems < ActiveRecord::Migration[7.0]
       t.string :name, null: false
       t.integer :price, null: false
       t.text :description, null: false
-      t.string :item_image, null: false
+      t.string :item_image
       t.timestamps
     end
   end
