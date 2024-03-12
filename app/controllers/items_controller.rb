@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
   # GET /tasks or /tasks.json
   def index
     @items = Item.all
-    @line_item = LineItem.new
+    @cart_item = CartItem.new
   end
 
   # GET /tasks/1 or /tasks/1.json

@@ -12,7 +12,7 @@ class CartsController < ApplicationController
   # GET /carts/1 or /carts/1.json
   def show
     @cart = Cart.find(params[:id])
-    @cart_items = @cart.line_items
+    @cart_items = @cart.cart_items
   end
 
   # GET /carts/new
@@ -25,7 +25,7 @@ class CartsController < ApplicationController
 
   # POST /carts or /carts.json
   def create
-    @cart = Cart.new(cart_params)
+    @cart = Cart.new
 
     respond_to do |format|
       if @cart.save

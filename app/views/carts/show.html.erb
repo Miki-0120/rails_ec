@@ -161,7 +161,7 @@
                   </li>
                 </ul>
               <% else %>
-                <% @cart.line_items.each do |item| %>
+                <% @cart.cart_items.each do |item| %>
                   <span class="badge bg-primary rounded-pill">
                     <%= button_to 'カートを空にする', @cart, method: :delete, data: {confirm: 'カートを空にしてよろしいですか？'}, class: 'Editlink' %>
                   </span>
