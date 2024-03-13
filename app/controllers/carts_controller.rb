@@ -11,7 +11,7 @@ class CartsController < ApplicationController
 
   # GET /carts/1 or /carts/1.json
   def show
-    @cart = Cart.find(params[:id])
+    @cart = Cart.find
     @cart_items = @cart.cart_items
   end
 
@@ -25,7 +25,7 @@ class CartsController < ApplicationController
 
   # POST /carts or /carts.json
   def create
-    @cart = Cart.new
+    @cart = Cart.new(cart_params)
 
     respond_to do |format|
       if @cart.save
@@ -66,7 +66,7 @@ class CartsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_cart
-    @cart = Cart.find(params[:id])
+    @cart = Cart.find
   end
 
   # Only allow a list of trusted parameters through.
