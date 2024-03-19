@@ -2,7 +2,7 @@
 
 class Item < ApplicationRecord
   has_many :cart_items
-  before_destroy :ensure_not_referenced_by_any_lin_item
+  before_destroy :ensure_not_referenced_by_any_cart_item
 
   with_options presence: true do
     validates :name

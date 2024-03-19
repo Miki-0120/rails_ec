@@ -2,7 +2,6 @@
 
 class CartsController < ApplicationController
   before_action :set_cart, only: %i[show edit update destroy]
-  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /carts or /carts.json
   def index
@@ -11,7 +10,6 @@ class CartsController < ApplicationController
 
   # GET /carts/1 or /carts/1.json
   def show
-    @cart = Cart.find
     @cart_items = @cart.cart_items
   end
 
@@ -66,16 +64,11 @@ class CartsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_cart
-    @cart = Cart.find
+    @cart = Cart.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def cart_params
     params.fetch(:cart, {})
-  end
-
-  def invalid_cart
-    logger.error "無効なカート（#{params[:id]}）にアクセスしようとしました。"
-    redirect_to items_url, notice: '無効なカートです。'
   end
 end
