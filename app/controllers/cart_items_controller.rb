@@ -23,21 +23,14 @@ class CartItemsController < ApplicationController
   # POST /line_items or /line_items.json
   def create
     item = Item.find(params[:item_id])
-    @cart_item = @cart.add_item(item)
+    @cart_item = @cart.cart_items.build(item: item)
     redirect_to request.referer
   end
 
   # PATCH/PUT /line_items/1 or /line_items/1.json
   def update
-    respond_to do |format|
-      if @cart_item.update(cart_item_params)
-        format.html { redirect_to cart_item_url(@cart_item), notice: '正常に更新されました' }
-        format.json { render :show, status: :ok, location: @cart_item }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @cart_item.errors, status: :unprocessable_entity }
-      end
-    end
+    @cart_item.update(cart_item_params)
+    redirect_to request.referer
   end
 
   # DELETE /line_items/1 or /line_items/1.json
@@ -55,6 +48,6 @@ class CartItemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def cart_item_params
-    params.require(:cart_item).permit(:item_id)
+    params.require(:cart_item).permit(:item_id, :cart_id)
   end
 end
