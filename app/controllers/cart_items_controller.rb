@@ -23,13 +23,16 @@ class CartItemsController < ApplicationController
   # POST /line_items or /line_items.json
   def create
     item = Item.find(params[:item_id])
-    @cart_item = @cart.cart_items.build(item: item)
+    @cart_item = @cart.add_item(item)
+    @cart_item.quantity += params[:quantity].to_i
+    @cart_item.save
     redirect_to request.referer
   end
 
   # PATCH/PUT /line_items/1 or /line_items/1.json
   def update
     @cart_item.update(cart_item_params)
+    @cart_item.update(quantity: params[:quantity].to_i)
     redirect_to request.referer
   end
 

@@ -11,6 +11,8 @@ class CartsController < ApplicationController
   # GET /carts/1 or /carts/1.json
   def show
     @cart_items = @cart.cart_items
+    @total_price = @cart_items.to_a.sum(&:total_price)
+    @total_price_all = @cart_items.sum(&:total_price)
   end
 
   # GET /carts/new
@@ -24,25 +26,21 @@ class CartsController < ApplicationController
   # POST /carts or /carts.json
   def create
     @cart = Cart.new(cart_params)
-      @cart.save
-      redirect_to request.referer
+    @cart.save
+    redirect_to request.referer
   end
 
   # PATCH/PUT /carts/1 or /carts/1.json
   def update
-      @cart.update(cart_params)
-      redirect_to request.referer
+    @cart.update(cart_params)
+    redirect_to request.referer
   end
 
   # DELETE /carts/1 or /carts/1.json
   def destroy
     @cart.destroy if @cart.id == session[:cart_id]
     session[:cart_id] = nil
-
-    respond_to do |format|
-    format.html { redirect_to carts_url, notice: 'Cart was successfully destroyed.' }
-    format.json { head :no_content }
-    end
+    redirect_to request.referer
   end
 
   private

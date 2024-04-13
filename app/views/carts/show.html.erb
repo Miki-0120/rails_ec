@@ -160,29 +160,30 @@
                   </li>
                 </ul>
               <% else %>
-                <% @cart.cart_items.each do |item| %>
-                  <span class="badge bg-primary rounded-pill">
-                    <%= link_to  "カートを空にする", @cart, data: { turbo_method: :delete }, class:"Editlink" %>
-                  </span>
+                <% @cart_items.each do |cart_item| %>
                 </h4>
                 <ul class="list-group mb-3">
                   <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
-                      <h6 class="my-0"><%= item.item.name %><%= item.quantity %></h6>
+                      <h6 class="my-0"><%= cart_item.item.name %></h6>
                       <small class="text-body-secondary"></small>
                     </div>
                     <span class="text-body-secondary">
-                      <%= item.item.price %>円
-                      <%= item.quantity %>個
-                      <%= link_to  "削除", item, data: { turbo_method: :delete }, class:"Editlink" %>
+                      <%= cart_item.item.price %>円
+                      <%= cart_item.quantity %>個
+                      合計<%= cart_item.total_price %>円
+                      <%= link_to  "削除", cart_item, data: { turbo_method: :delete }, class:"Editlink", class:"btn btn-outline-dark mt-auto" %>
                     </span>
                   </li>
-                  <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (JPY)</span>
-                    <strong><%= (@cart.total_price).to_i %>円</strong>
-                  </li>
                 <% end %>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Total (JPY)</span>
+                  <strong><%= @total_price_all %>円</strong>
+                </li>
               <% end %>
+              <span class="badge bg-primary rounded-pill">
+                <%= link_to "商品一覧へ戻る", items_path, class: "Editlink" %>
+              </span>
             </ul>
             <form class="card p-2">
               <div class="input-group">

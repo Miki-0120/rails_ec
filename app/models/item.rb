@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Item < ApplicationRecord
-  has_many :cart_items
+  has_many :cart_items, dependent: :destroy
 
   with_options presence: true do
     validates :name
