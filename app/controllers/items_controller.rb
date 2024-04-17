@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ItemsController < ApplicationController
-  include CurrentCart
   before_action :set_cart
   # GET /tasks or /tasks.json
   def index
