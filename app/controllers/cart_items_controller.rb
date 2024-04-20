@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CartItemsController < ApplicationController
-  before_action :set_cart, only: [:create]
+  before_action :set_cart
   before_action :set_cart_item, only: %i[show edit update destroy]
   # GET /line_items or /line_items.json
   def index
