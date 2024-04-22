@@ -8,5 +8,3 @@ class ApplicationController < ActionController::Base
     session[:cart_id] ||= @cart.id
   end
 end
-#こちら初回の場合に、session[:cart_id]に格納されていないので、
-#session[:cart_id]に@cart.idを格納しましょう。
