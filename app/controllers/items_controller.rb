@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class ItemsController < ApplicationController
+  before_action :set_cart
   # GET /tasks or /tasks.json
   def index
     @items = Item.all
+    @cart_item = CartItem.new
   end
 
   # GET /tasks/1 or /tasks/1.json
