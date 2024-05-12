@@ -7,8 +7,4 @@ class CartItem < ApplicationRecord
   def total_price
     item.price * quantity
   end
-
-  def total_price_all
-    @cart_items.sum(&:total_price)
-  end
 end
