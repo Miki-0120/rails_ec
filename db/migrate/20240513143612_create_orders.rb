@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateOrders < ActiveRecord::Migration[7.0]
   def change
     create_table :orders do |t|
@@ -15,7 +17,7 @@ class CreateOrders < ActiveRecord::Migration[7.0]
       t.integer :credit_card_number, null: false
       t.integer :expiration, null: false
       t.integer :cvv, null: false
-      
+
       t.timestamps
     end
   end

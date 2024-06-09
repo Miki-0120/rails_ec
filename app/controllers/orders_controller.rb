@@ -1,4 +1,4 @@
- # frozen_string_literal: true
+# frozen_string_literal: true
 
 class OrdersController < ApplicationController
   before_action :set_cart
@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    
+
     @order.cart = @cart
 
     ActiveRecord::Base.transaction do
@@ -37,6 +37,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(%i[first_name last_name user_name email address address_2 country state zip name_on_card credit_card_number expiration cvv ])
+    params.require(:order).permit(%i[first_name last_name user_name email address address_2 country state zip
+                                     name_on_card credit_card_number expiration cvv])
   end
 end

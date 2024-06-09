@@ -6,7 +6,7 @@ class CartItemsController < ApplicationController
   def show
     @order = Order.new
   end
-  
+
   # POST /line_items or /line_items.json
   def create
     item = Item.find(params[:item_id])

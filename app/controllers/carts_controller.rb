@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CartsController < ApplicationController
-  
   # GET /carts/1 or /carts/1.json
   def show
     @cart = Cart.find(params[:id])
