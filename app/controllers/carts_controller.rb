@@ -8,5 +8,6 @@ class CartsController < ApplicationController
     @cart_items = @cart.cart_items
     @total_price = @cart_items.to_a.sum(&:total_price)
     @total_price_all = @cart_items.sum(&:total_price)
+    @order = Order.new
   end
 end

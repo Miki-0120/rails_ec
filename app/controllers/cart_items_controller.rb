@@ -2,6 +2,10 @@
 
 class CartItemsController < ApplicationController
   before_action :set_cart
+
+  def show
+    @order = Order.new
+  end
   
   # POST /line_items or /line_items.json
   def create
