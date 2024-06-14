@@ -87,9 +87,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_13_144228) do
   create_table "order_items", force: :cascade do |t|
     t.bigint "item_id", null: false
     t.bigint "order_id", null: false
-    t.string "name", null: false
-    t.integer "price", null: false
-    t.integer "quantity", null: false
+    t.string "name"
+    t.integer "price"
+    t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_order_items_on_item_id"
@@ -118,5 +118,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_13_144228) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "order_items", "items"
+  add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "carts"
 end
