@@ -32,6 +32,8 @@ class OrdersController < ApplicationController
 
     @cart.cart_items.destroy_all
     redirect_to items_path, notice: '購入ありがとうございます'
+  rescue ActiveRecord::RecordInvalid
+    redirect_to request.referer, alert: 'お客様情報を正しく入力してください'
   end
 
   private
