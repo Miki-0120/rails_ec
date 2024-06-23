@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :carts
   resources :items
   resources :orders
+  resources :order_items
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :admin do
     resources :items

@@ -197,8 +197,8 @@
             <%= form_with model:@order do |f| %>
               <div class="row g-3">
                 <div class="col-sm-6">
-                  <%= f.label :last_name,"名字",class:"form-label" %>
-                  <%= f.text_field :last_name,class:"form-control",placeholder:"名字" %>
+                  <%= f.label :last_name,"苗字",class:"form-label" %>
+                  <%= f.text_field :last_name,class:"form-control",placeholder:"苗字" %>
                 </div>
                 <div class="col-sm-6">
                   <%= f.label :first_name,"名前",class:"form-label" %>
@@ -224,8 +224,8 @@
                   <%= f.text_field :state,class:"form-control",placeholder:"都道府県名" %>
                 </div>
                 <div class="col-12">
-                  <%= f.label :address,"県庁所在地",class:"form-label" %>
-                  <%= f.text_field :address,class:"form-control",placeholder:"県庁所在地" %>
+                  <%= f.label :address,"市区町村、番地",class:"form-label" %>
+                  <%= f.text_field :address,class:"form-control",placeholder:"市区町村、番地" %>
                 </div>
                 <div class="col-12">
                   <%= f.label :address_2,"住所2(任意)",class:"form-label" %>

@@ -42,28 +42,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_13_144228) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "billing_informations", force: :cascade do |t|
-    t.string "first_name", null: false
-    t.string "last_name", null: false
-    t.string "user_name", null: false
-    t.string "email"
-    t.string "address", null: false
-    t.string "address_2"
-    t.string "country", null: false
-    t.string "state", null: false
-    t.integer "zip", null: false
-    t.string "name_on_card", null: false
-    t.integer "credit_card_number", null: false
-    t.integer "expiration", null: false
-    t.integer "cvv", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "cart_items", force: :cascade do |t|
     t.bigint "item_id"
     t.bigint "cart_id"
-    t.bigint "quantity", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
