@@ -2,7 +2,7 @@
 
 class OrdersController < ApplicationController
   before_action :set_cart
-  before_action :basic_auth[:index, :show]
+  before_action :basic_auth, only: [:index, :show]
 
   def index
     @orders = Order.all
