@@ -99,9 +99,9 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name: 'apikey',
-    password: ENV['SENDGRID_API_KEY'],
-    domain: 'heroku.com',
+    user_name: ENV['KEY'],
+    password: ENV['SECRET_KEY'],
+    domain: 'gmail.com',
     address: 'smtp.sendgrid.net',
     port: 587,
     authentication: :plain,
