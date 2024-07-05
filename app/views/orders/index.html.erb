@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<body>
+  <div class="container p-3">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>注文履歴一覧</h3>
+        <table class="table">
+          <td>注文日</td>
+          <td>注文ID</td>
+          <td></td>
+          <% @orders.each do |order| %>
+            <tr>
+              <td><%= order.created_at.strftime('%Y/%m/%d') %></td>
+              <td><%= order.id %></td>
+              <td><%= link_to "表示する", order_path(order.id), class: "btn btn-info" %></td>
+              <td><%= link_to  "削除", order, data: { turbo_method: :delete }, class:"Editlink", class:"btn btn-outline-dark mt-auto" %></td>
+            </tr>
+          <% end %>
+        </table>
+        <span class="badge bg-primary rounded-pill">
+          <%= link_to "商品一覧へ戻る", items_path, class: "Editlink" %>
+        </span>
+      </div>
+    </div>
+  </div>
+</body>

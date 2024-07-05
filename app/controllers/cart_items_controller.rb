@@ -2,7 +2,7 @@
 
 class CartItemsController < ApplicationController
   before_action :set_cart
-  
+
   # POST /line_items or /line_items.json
   def create
     item = Item.find(params[:item_id])

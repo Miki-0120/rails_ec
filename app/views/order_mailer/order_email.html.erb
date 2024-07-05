@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <body>
+    <div class="col-xs-8">
+      <b>ご注文内容</b>
+      <table class="table order-show-table">
+        <thead>
+          <tr>
+            <th class="active col-xs-6">商品</th>
+            <th class="active">単価</th>
+            <th class="active">個数</th>
+            <th class="active">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order_items.each do |item| %>
+            <tr>
+              <td><%= item.item.name %></td>
+              <td>¥<%= item.price %></td>
+              <td><%= item.quantity %></td>
+              <td>¥<%= item.price * item.quantity %></td>
+            </tr>
+          <% end %>
+          <span>Total (JPY)</span>
+          <%= @order.order_total_price_all %>円
+        </tbody>
+      </div>
+    </body>
+  </html>
