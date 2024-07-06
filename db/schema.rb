@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_13_144228) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_06_071308) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,6 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_13_144228) do
   create_table "cart_items", force: :cascade do |t|
     t.bigint "item_id"
     t.bigint "cart_id"
+    t.bigint "quantity", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
@@ -97,9 +98,20 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_13_144228) do
     t.index ["cart_id"], name: "index_orders_on_cart_id"
   end
 
+  create_table "promotion_codes", force: :cascade do |t|
+    t.bigint "order_id"
+    t.string "promo_code", null: false
+    t.integer "discount", null: false
+    t.boolean "usable", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_promotion_codes_on_order_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "carts"
+  add_foreign_key "promotion_codes", "orders"
 end
