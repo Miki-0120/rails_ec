@@ -7,4 +7,9 @@ class ApplicationController < ActionController::Base
     @cart = Cart.find_or_create_by(id: session[:cart_id])
     session[:cart_id] ||= @cart.id
   end
+
+  def price_dicounted
+    discount = PromotionCode.find_by(promo_code: session[:register_code])
+    @total_price_all - discount.discount
+  end
 end

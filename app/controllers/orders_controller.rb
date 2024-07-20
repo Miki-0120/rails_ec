@@ -2,7 +2,7 @@
 
 class OrdersController < ApplicationController
   before_action :set_cart
-  before_action :basic_auth, only: [:index, :show]
+  before_action :basic_auth, only: %i[index show]
 
   def index
     @orders = Order.all
@@ -11,12 +11,15 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @order_items = @order.order_items
+    @discount = PromotionCode.find_by(order_id: params[:id]).discount
   end
 
   def create
     @order = Order.new(order_params)
 
     @order.cart = @cart
+
+    discount = PromotionCode.find_by(promo_code: session[:register_code])
 
     if @cart.cart_items.empty?
       redirect_to request.referer, alert: 'カートが空です'
@@ -32,12 +35,17 @@ class OrdersController < ApplicationController
           order: @order,
           item: item.item,
           name: item.item.name,
-          price: item.item.price,
+          price: session[:register_code].present? ? item.item.price - discount.discount : item.item.price,
           quantity: item.quantity
         )
         order_item.save!
+        discount.usable = false
+        discount.order_id = @order.id
+        session[:register_code].clear
+        discount.save!
       end
     end
+
     OrderMailer.with(order: @order).order_email.deliver_now
     @cart.cart_items.destroy_all
     redirect_to items_path, notice: '購入ありがとうございます'
