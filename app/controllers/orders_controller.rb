@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @order_items = @order.order_items
-    @discount = PromotionCode.find_by(order_id: params[:id]).discount
+    @promotion_code = PromotionCode.find_by(order_id: params[:id]).promotion_code
   end
 
   def create
@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
 
     @order.cart = @cart
 
-    discount = PromotionCode.find_by(promo_code: session[:register_code])
+    promotion_code = PromotionCode.find_by(code: session[:register_code])
 
     if @cart.cart_items.empty?
       redirect_to request.referer, alert: 'カートが空です'
@@ -35,20 +35,20 @@ class OrdersController < ApplicationController
           order: @order,
           item: item.item,
           name: item.item.name,
-          price: session[:register_code].present? ? item.item.price - discount.discount : item.item.price,
+          price: item.item.price,
           quantity: item.quantity
         )
         order_item.save!
-        discount.usable = false
-        discount.order_id = @order.id
+        promotion_code.usable = false
+        promotion_code.order_id = @order.id
         session[:register_code].clear
-        discount.save!
+        promotion_code.save!
       end
     end
 
     OrderMailer.with(order: @order).order_email.deliver_now
     @cart.cart_items.destroy_all
-    redirect_to items_path, notice: '購入ありがとうございます'
+    redirect_to items_path, notice: 'ご購入ありがとうございます'
   rescue ActiveRecord::RecordInvalid
     redirect_to request.referer, alert: 'お客様情報を正しく入力してください'
   end
@@ -60,7 +60,7 @@ class OrdersController < ApplicationController
   end
 
   def order_total_price
-    @order_total_price_all = @order_items.sum(&:order_total_price)
+    @order_total_price_all = session[:register_code].present? ? @order_items.sum(&:order_total_price) - @promotion_code.promotion_code : @order_items.sum(&:order_total_price)
   end
 
   private

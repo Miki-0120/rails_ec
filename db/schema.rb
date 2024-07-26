@@ -100,8 +100,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_06_071308) do
 
   create_table "promotion_codes", force: :cascade do |t|
     t.bigint "order_id"
-    t.string "promo_code", null: false
-    t.integer "discount", null: false
+    t.string "code", null: false
+    t.integer "promotion_code", null: false
     t.boolean "usable", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

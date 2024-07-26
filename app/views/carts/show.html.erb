@@ -177,10 +177,10 @@
                   </li>
                 <% end %>
                 <li class="list-group-item d-flex justify-content-between">
-                  <% if @discount %>
+                  <% if @promotion_code %>
                     <strong class="my-0">合計金額</strong>
-                    <div>割引前：<span class="text-muted text-decoration-line-through"><%= @total_price_all %>円</span><span class="text-danger"> -<%= @discount.discount %>円</span></div>
-                    <strong><%= @total_price_all - @discount.discount %>円</strong>
+                    <div>割引前：<span class="text-muted text-decoration-line-through"><%= @total_price_all %>円</span><span class="text-danger"> -<%= @promotion_code.promotion_code %>円</span></div>
+                    <strong><%= @total_price_all - @promotion_code.promotion_code %>円</strong>
                   <% else %>
                     <strong class="my-0">合計金額</strong>
                     <strong><%= @total_price_all %>円</strong>
@@ -193,11 +193,11 @@
                 </h6>
               </span>
             </ul>
-            <%  @discount %>
-            <%= form_with model:@promotion_code,url:promotion_codes_discount_path do |f|%>
+            <%  @promotion_code %>
+            <%= form_with model:@promotion_code,url:promotion_codes_promotion_code_path do |f|%>
               <form class="card p-2">
                 <div class="input-group">
-                  <%= f.text_field :promo_code, placeholder:'プロモーションコード',class:'form-control'  %>
+                  <%= f.text_field :code, placeholder:'プロモーションコード',class:'form-control'  %>
                   <%= f.submit '適用',class:'btn btn-secondary'  %>
                 </div>
               </form>

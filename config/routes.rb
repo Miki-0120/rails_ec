@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :items
   resources :orders
   resources :order_items
-  post 'promotion_codes/discount'
+  post 'promotion_codes/promotion_code'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   namespace :admin do
     resources :items
