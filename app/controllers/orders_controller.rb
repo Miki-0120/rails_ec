@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @order_items = @order.order_items
-    @promotion_code = PromotionCode.find_by(order_id: params[:id]).promotion_code
+    @discount = PromotionCode.find_by(order_id: params[:id]).promotion_code
   end
 
   def create
@@ -39,10 +39,10 @@ class OrdersController < ApplicationController
           quantity: item.quantity
         )
         order_item.save!
-        promotion_code.usable = false
-        promotion_code.order_id = @order.id
+        discount.usable = false
+        discount.order_id = @order.id
         session[:register_code].clear
-        promotion_code.save!
+        discount.save!
       end
     end
 
@@ -60,7 +60,7 @@ class OrdersController < ApplicationController
   end
 
   def order_total_price
-    @order_total_price_all = session[:register_code].present? ? @order_items.sum(&:order_total_price) - @promotion_code.promotion_code : @order_items.sum(&:order_total_price)
+    @order_total_price_all = @order_items.sum(&:order_total_price)
   end
 
   private

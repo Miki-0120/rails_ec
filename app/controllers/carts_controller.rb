@@ -9,6 +9,6 @@ class CartsController < ApplicationController
     @total_price_all = @cart_items.sum(&:total_price)
     @order = Order.new
     @promotion_code = PromotionCode.new
-    @promotion_code = PromotionCode.find_by(code: session[:register_code])
+    @discount = PromotionCode.find_by(code: session[:register_code])
   end
 end
