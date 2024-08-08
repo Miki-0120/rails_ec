@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PromotionCodesController < ApplicationController
-  def promotion_code
+  def discount
     code = PromotionCode.find_by(code: params[:promotion_code][:code])
 
     if code&.usable?

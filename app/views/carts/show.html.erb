@@ -194,7 +194,7 @@
               </span>
             </ul>
             <%  @discount %>
-            <%= form_with model:@promotion_code,url:promotion_codes_promotion_code_path do |f|%>
+            <%= form_with model:@promotion_code,url:promotion_codes_discount_path do |f|%>
               <form class="card p-2">
                 <div class="input-group">
                   <%= f.text_field :code, placeholder:'プロモーションコード',class:'form-control'  %>
