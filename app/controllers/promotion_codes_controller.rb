@@ -3,7 +3,6 @@
 class PromotionCodesController < ApplicationController
   def discount
     code = PromotionCode.find_by(code: params[:promotion_code][:code])
-
     if code&.usable?
       session[:register_code] = params[:promotion_code][:code]
       code.usable = false

@@ -8,6 +8,7 @@ class Order < ApplicationRecord
     validates :first_name
     validates :last_name
     validates :user_name
+    validates :email
     validates :address
     validates :country
     validates :state
