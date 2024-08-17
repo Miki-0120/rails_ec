@@ -2,6 +2,7 @@
 
 class Order < ApplicationRecord
   belongs_to :cart
+  belongs_to :promotion_code, optional: true
   has_many :order_items, dependent: :destroy
 
   with_options presence: true do

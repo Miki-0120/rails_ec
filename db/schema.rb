@@ -80,6 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_06_071308) do
 
   create_table "orders", force: :cascade do |t|
     t.bigint "cart_id", null: false
+    t.bigint "promotion_code_id"
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "user_name", null: false
@@ -96,16 +97,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_06_071308) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_orders_on_cart_id"
+    t.index ["promotion_code_id"], name: "index_orders_on_promotion_code_id"
   end
 
   create_table "promotion_codes", force: :cascade do |t|
-    t.bigint "order_id"
     t.string "code", null: false
     t.integer "discount", null: false
     t.boolean "usable", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_promotion_codes_on_order_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -113,5 +113,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_06_071308) do
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "carts"
-  add_foreign_key "promotion_codes", "orders"
+  add_foreign_key "orders", "promotion_codes"
 end

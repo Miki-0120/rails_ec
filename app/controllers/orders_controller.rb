@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @order_items = @order.order_items
-    @discount = PromotionCode.find_by(order_id: params[:id])&.discount
+    @discount = @order.promotion_code&.discount
   end
 
   def create
@@ -24,6 +24,10 @@ class OrdersController < ApplicationController
     if @cart.cart_items.empty?
       redirect_to request.referer, alert: 'カートが空です'
       return
+    end
+
+    if promotion_code.present?
+      @order.promotion_code_id = promotion_code.id
     end
 
     ActiveRecord::Base.transaction do
@@ -41,9 +45,9 @@ class OrdersController < ApplicationController
         if session[:register_code].present?
           order_item.save!
           promotion_code.usable = false
-          promotion_code.order_id = @order.id
           session[:register_code].clear
           promotion_code.save!
+          
         else
           order_item.save!
         end

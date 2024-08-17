@@ -4,7 +4,7 @@ class OrderMailer < ApplicationMailer
   def order_email
     @order = params[:order]
     @order_items = @order.order_items.all
-    @discount = PromotionCode.find_by(order_id: params[:id])&.discount
+    @discount = @order.promotion_code&.discount
     mail(to: @order.email, subject: 'ご注文ありがとうございます')
   end
 end
