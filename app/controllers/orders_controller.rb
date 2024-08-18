@@ -26,9 +26,7 @@ class OrdersController < ApplicationController
       return
     end
 
-    if promotion_code.present?
-      @order.promotion_code_id = promotion_code.id
-    end
+    @order.promotion_code_id = promotion_code.id if promotion_code.present?
 
     ActiveRecord::Base.transaction do
       @order.save!
@@ -47,7 +45,7 @@ class OrdersController < ApplicationController
           promotion_code.usable = false
           session[:register_code].clear
           promotion_code.save!
-          
+
         else
           order_item.save!
         end
