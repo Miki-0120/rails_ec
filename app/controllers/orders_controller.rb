@@ -40,14 +40,11 @@ class OrdersController < ApplicationController
           price: item.item.price,
           quantity: item.quantity
         )
+        order_item.save!
         if session[:register_code].present?
-          order_item.save!
           promotion_code.usable = false
           session[:register_code].clear
           promotion_code.save!
-
-        else
-          order_item.save!
         end
       end
     end
