@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @order_items = @order.order_items
+    @discount = @order.promotion_code&.discount
   end
 
   def create
@@ -18,10 +19,14 @@ class OrdersController < ApplicationController
 
     @order.cart = @cart
 
+    promotion_code = PromotionCode.find_by(code: session[:register_code])
+
     if @cart.cart_items.empty?
       redirect_to request.referer, alert: 'カートが空です'
       return
     end
+
+    @order.promotion_code_id = promotion_code.id if promotion_code.present?
 
     ActiveRecord::Base.transaction do
       @order.save!
@@ -36,11 +41,17 @@ class OrdersController < ApplicationController
           quantity: item.quantity
         )
         order_item.save!
+        if session[:register_code].present?
+          promotion_code.usable = false
+          session[:register_code].clear
+          promotion_code.save!
+        end
       end
     end
+
     OrderMailer.with(order: @order).order_email.deliver_now
     @cart.cart_items.destroy_all
-    redirect_to items_path, notice: '購入ありがとうございます'
+    redirect_to items_path, notice: 'ご購入ありがとうございます'
   rescue ActiveRecord::RecordInvalid
     redirect_to request.referer, alert: 'お客様情報を正しく入力してください'
   end

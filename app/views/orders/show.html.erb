@@ -72,39 +72,51 @@
         <b>請求情報</b>
         <table class="table order-show-table">
           <tbody>
+            <% if @discount %>
+              <tr>
+                <td class="active">プロモーションコード割引</td>
+                <td><%=  @discount %>円</td>
+              </tr>
+              <tr>
+                <td class="active">商品合計</td>
+                <td><%= @order.order_total_price_all - @discount %>円</td>
+              </tr>
+            <% else %>
+            </tr>
             <tr>
               <td class="active">商品合計</td>
               <td><%= @order.order_total_price_all %>円</td>
             </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <b>注文内容</b>
-      <table class="table order-show-table">
-        <thead>
-          <tr>
-            <th class="active col-xs-6">商品</th>
-            <th class="active">単価</th>
-            <th class="active">個数</th>
-            <th class="active">小計</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @order_items.each do |item| %>
-            <tr>
-              <td><%= item.item.name %></td>
-              <td>¥<%= item.price %></td>
-              <td><%= item.quantity %></td>
-              <td>¥<%= item.price * item.quantity %></td>
-            </tr>
           <% end %>
         </tbody>
       </table>
-      <span class="badge bg-primary rounded-pill">
-        <%= link_to "商品一覧へ戻る", items_path, class: "Editlink" %>
-      </span>
     </div>
   </div>
+  <div class="col-xs-8">
+    <b>注文内容</b>
+    <table class="table order-show-table">
+      <thead>
+        <tr>
+          <th class="active col-xs-6">商品</th>
+          <th class="active">単価</th>
+          <th class="active">個数</th>
+          <th class="active">小計</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order_items.each do |item| %>
+          <tr>
+            <td><%= item.item.name %></td>
+            <td>¥<%= item.price %></td>
+            <td><%= item.quantity %></td>
+            <td>¥<%= item.price * item.quantity %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <span class="badge bg-primary rounded-pill">
+      <%= link_to "商品一覧へ戻る", items_path, class: "Editlink" %>
+    </span>
+  </div>
+</div>
 </body>

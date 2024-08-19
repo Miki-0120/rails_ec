@@ -2,12 +2,14 @@
 
 class Order < ApplicationRecord
   belongs_to :cart
+  belongs_to :promotion_code, optional: true
   has_many :order_items, dependent: :destroy
 
   with_options presence: true do
     validates :first_name
     validates :last_name
     validates :user_name
+    validates :email
     validates :address
     validates :country
     validates :state
